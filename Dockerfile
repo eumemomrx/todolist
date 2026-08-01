@@ -1,12 +1,14 @@
 FROM ubuntu:latest AS build
 
-RUN apt-get update && apt-get install -y openjdk-17-jdk maven
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
 
 WORKDIR /app
 
 COPY . .
 
-RUN mvn clean package -DskipTests
+RUN apt-get install maven -y
+RUN mvn clean install
 
 FROM eclipse-temurin:17-jdk-jammy
 
